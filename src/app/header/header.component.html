@@ -1,0 +1,26 @@
+<p (click)="mycolor='blue'" [style.color]="mycolor" [class]="myclass">
+    header works!
+    {{x}}
+</p>
+
+<input type="text" (input)="changeColor($event.target.value)" (keydown.control.shift.enter)="changeColor('green')">
+
+<input type="text" #colorElement>
+
+<button (click)="changeColor(colorElement.value)">Change</button>
+
+<app-user-card *ngIf="isShown" [user]="user"></app-user-card>
+<button (click)="isShown=isShown">Change</button>
+
+<ul>
+    <li *ngFor="let user of users">{{user.name}}</li>
+</ul>
+
+
+<ul>
+    <li *ngFor="let user of users">
+        <app-user-card [user]="user" (userSelected)="selectedUser=user"></app-user-card>
+    </li>
+</ul>
+
+<h1>{{selectedUser?.name}}</h1>
