@@ -29,3 +29,12 @@
 <div appColory>Here directive</div>
 
 <div *appDelay="4">Structure Directive</div>
+
+// controller export as 
+<div appColory #colory="colory">
+  Some text
+</div>
+
+<button (click)="colory.setRandomColor()">Change color!</button>
+
+
