@@ -30,11 +30,27 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users = this._userService.getAll();
+    this.getUsers();
   }
 
-  changeColor(color) {
+  changeColor(color: string) {
     this.mycolor=color;
   }
 
+  removeUser(name: string) {
+    this._userService.remove(name);
+    this.getUsers();
+  }
+
+  addUser(name: string) {
+    if(!name)
+      return;
+
+    this._userService.add(name);
+    this.getUsers();
+  }
+
+  getUsers() {
+    this.users = this._userService.getAll();
+  }
 }
