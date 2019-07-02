@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { ColoryDirective } from './colory.directive';
 import { DelayDirective } from './delay.directive';
 import { ElemComponent } from './elem/elem.component';
 import { UserService } from './user.service';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { UserService } from './user.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,11 @@ export class UserService {
     {name: "Max"}
   ];
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
   public getAll() {
-    return this.users;
+    //JSONPlaceholder Fake Online REST API for Testing and Prototyping
+    return this._http.get("https://jsonplaceholder.typicode.com/users"); 
   }
 
   public remove(name: string) {
