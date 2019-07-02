@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { HttpClientModule} from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { DelayDirective } from './delay.directive';
 import { ElemComponent } from './elem/elem.component';
 import { UserService } from './user.service';
 
+
+const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @NgModule({
   declarations: [
@@ -31,7 +33,18 @@ import { UserService } from './user.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    {provide: UserService, useClass: UserService},
+    {provide: API_BASE_URL, useValue: 'api.mysite.com'},
+    {provide: UserService, useExisting: UserService},//already existing service
+    {provide: UserService, useFactory: function(){
+      if(true){
+        return new UserService();
+      }
+      return new UserService();
+    }, deps['UserService']},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
