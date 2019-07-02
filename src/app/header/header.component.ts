@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-header',
@@ -15,18 +16,21 @@ export class HeaderComponent implements OnInit {
   public user = {
     name: "John"
   };
-  public users = [
-    {name: "John"},
-    {name: "Kate"},
-    {name: "Max"}
-  ];
-  constructor() { 
+  public users;
+
+  // Dependency ingection
+  //private _userService;
+  //constructor(userService: UserService) { 
+    //this._userService = userService;
+  //More short way
+  constructor(private _userService: UserService) { 
     setTimeout(() => {
       this.myclass='green';
     }, 2000);
   }
 
   ngOnInit() {
+    this.users = this._userService.getAll();
   }
 
   changeColor(color) {
