@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, ReflectiveInjector } from '@angular/core';
 import { HttpClientModule} from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,12 @@ import { UserService } from './user.service';
 
 
 const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+
+import { Injector } from "@angular/core";
+import { Inject } from '@angular/compiler/src/core';
+
+const injector:Injector = ReflectiveInjector.resolveAndCreate([{provide: UserService, useClass: UserService}])
+const userService = injector.get(UserService)
 
 @NgModule({
   declarations: [
@@ -39,11 +45,8 @@ const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
     {provide: API_BASE_URL, useValue: 'api.mysite.com'},
     {provide: UserService, useExisting: UserService},//already existing service
     {provide: UserService, useFactory: function(){
-      if(true){
-        return new UserService();
-      }
-      return new UserService();
-    }, deps['UserService']},
+      return UserService;
+    }},
   ],
   bootstrap: [AppComponent]
 })
